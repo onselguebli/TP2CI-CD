@@ -9,13 +9,22 @@ import javax.swing.JPanel;
 public class Calculator extends JFrame implements ActionListener{
 	private JButton delBtn, clearBtn;
 	private JButton NumberBtn[];
-	private JButton functionBtn[];
+	public JButton[] functionBtn;
 	private JButton Add_btn, Sub_btn, Mul_btn, Div_btn, equalBtn, decBtn;
 	private JPanel panel;
-	private JTextField text;
+	public JTextField text;
 
-	private double number, result = 0, current, temp = 0;
-	private char operator = ' ';
+	public double number;
+	public double result = 0;
+	private double current;
+	public double temp = 0;
+	public char operator = ' ';
+
+	@Override
+	public int getX() {
+		return x;
+	}
+
 	private int x = 0;
 	private String del= "", str = "";
 
