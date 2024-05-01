@@ -1,0 +1,50 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '21' # Choisissez la version de Java que vous utilisez
+
+      - name: Compile and package JAR
+        run: |
+          # Compilation et création du fichier JAR
+          javac -d out Calculator.java
+          jar cvf Calculator.jar -C out .
+
+      - name: Run tests
+        run: |
+          # Exécution des tests unitaires
+          java -jar  Calculator.jar C:\Users/user/IdeaProjects/Java-Calculator-with-GUI/out/production/Java-Calculator-with-GUI/test/CalculatorTest
+
+  deploy:
+    name: Deployment
+    runs-on: windows-latest
+    needs: [build]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '21' # Choisissez la version de Java que vous utilisez
+
+      - name: Deploy to production
+        run: |
+          # Commandes pour déployer votre application (à adapter selon votre méthode de déploiement)
+          java -jar Calculator.jar
